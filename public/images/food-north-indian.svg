@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1">
+      <stop offset="0%" stop-color="#f7d0a5"/>
+      <stop offset="100%" stop-color="#f7f1e8"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="600" fill="url(#bg)"/>
+  <circle cx="450" cy="320" r="190" fill="#f5f1eb"/>
+  <ellipse cx="450" cy="330" rx="168" ry="112" fill="#d7771b"/>
+  <path d="M330 350c30-55 83-85 120-85s90 30 120 85c-12 54-57 85-120 85-66 0-108-31-120-85z" fill="#c45d18"/>
+  <path d="M367 245l58 90 55-90" fill="#f0c554"/>
+  <path d="M415 238l50 95 52-95" fill="#d99d28"/>
+  <path d="M318 296c14-44 47-79 80-96" stroke="#e4ae52" stroke-width="9" fill="none" stroke-linecap="round"/>
+  <path d="M580 296c-14-44-47-79-80-96" stroke="#e4ae52" stroke-width="9" fill="none" stroke-linecap="round"/>
+  <circle cx="390" cy="302" r="12" fill="#ebd57f"/>
+  <circle cx="512" cy="300" r="12" fill="#ebd57f"/>
+  <circle cx="450" cy="378" r="12" fill="#ebd57f"/>
+  <text x="450" y="520" text-anchor="middle" font-size="42" font-family="Georgia, serif" fill="#7a4d19" font-weight="700">North Indian</text>
+</svg>

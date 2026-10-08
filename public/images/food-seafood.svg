@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1">
+      <stop offset="0%" stop-color="#cfe8f6"/>
+      <stop offset="100%" stop-color="#f7fbff"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="600" fill="url(#bg)"/>
+  <ellipse cx="450" cy="340" rx="215" ry="170" fill="#f4fafc"/>
+  <path d="M330 360c30-78 82-112 120-112s92 34 120 112c-18 37-66 70-120 70s-101-33-120-70z" fill="#9ed4df"/>
+  <path d="M385 340c15-24 42-42 65-42s52 18 67 42" stroke="#4d9ab3" stroke-width="10" fill="none" stroke-linecap="round"/>
+  <path d="M405 246l-32-24c8-12 18-15 31-11" stroke="#4d9ab3" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <path d="M495 246l32-24c-8-12-18-15-31-11" stroke="#4d9ab3" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <circle cx="430" cy="318" r="10" fill="#f7fffe"/>
+  <circle cx="470" cy="318" r="10" fill="#f7fffe"/>
+  <text x="450" y="520" text-anchor="middle" font-size="42" font-family="Georgia, serif" fill="#255c76" font-weight="700">Seafood</text>
+</svg>

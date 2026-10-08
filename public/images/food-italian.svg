@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1">
+      <stop offset="0%" stop-color="#f5d7c7"/>
+      <stop offset="100%" stop-color="#faf6f2"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="600" fill="url(#bg)"/>
+  <circle cx="450" cy="325" r="190" fill="#f5efea"/>
+  <circle cx="450" cy="325" r="150" fill="#d78d32"/>
+  <path d="M310 330c0-70 63-125 140-125 77 0 140 55 140 125s-63 125-140 125c-77 0-140-55-140-125z" fill="#f0d8a2"/>
+  <path d="M335 331c18-39 48-62 115-62 66 0 98 24 116 62-17 40-51 63-116 63-64 0-95-22-115-63z" fill="#d3a248"/>
+  <circle cx="400" cy="302" r="16" fill="#c54522"/>
+  <circle cx="500" cy="302" r="16" fill="#c54522"/>
+  <circle cx="450" cy="350" r="17" fill="#c54522"/>
+  <path d="M390 387c26 30 64 44 104 44 42 0 77-16 104-45" stroke="#b14a20" stroke-width="10" fill="none" stroke-linecap="round"/>
+  <text x="450" y="520" text-anchor="middle" font-size="42" font-family="Georgia, serif" fill="#8f4e1a" font-weight="700">Italian</text>
+</svg>

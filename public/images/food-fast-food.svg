@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1">
+      <stop offset="0%" stop-color="#f7d5b3"/>
+      <stop offset="100%" stop-color="#fffaf4"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="600" fill="url(#bg)"/>
+  <rect x="270" y="220" width="360" height="170" rx="36" fill="#f1d7aa"/>
+  <rect x="320" y="210" width="260" height="180" rx="30" fill="#d98837"/>
+  <rect x="340" y="190" width="220" height="30" rx="15" fill="#c66d2c"/>
+  <path d="M334 276h230l-18 100H352z" fill="#f8de8c"/>
+  <circle cx="385" cy="278" r="16" fill="#c96d2d"/>
+  <circle cx="516" cy="278" r="16" fill="#c96d2d"/>
+  <path d="M355 252c0-32 20-55 45-55" stroke="#7d4320" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <path d="M545 252c0-32-20-55-45-55" stroke="#7d4320" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <text x="450" y="520" text-anchor="middle" font-size="42" font-family="Georgia, serif" fill="#7a4d19" font-weight="700">Fast Food</text>
+</svg>

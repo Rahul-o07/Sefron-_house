@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1">
+      <stop offset="0%" stop-color="#f9d9a7"/>
+      <stop offset="100%" stop-color="#f7f4ed"/>
+    </linearGradient>
+    <linearGradient id="plate" x1="0" x2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#e8e6e0"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="600" fill="url(#bg)"/>
+  <circle cx="450" cy="330" r="185" fill="url(#plate)"/>
+  <circle cx="450" cy="330" r="135" fill="#edc37d" opacity="0.9"/>
+  <path d="M330 330c28-56 85-88 120-88s96 33 120 88c-15 39-57 68-120 68s-104-29-120-68z" fill="#d98d2a"/>
+  <path d="M368 284c36-24 76-34 111-17 35 16 52 44 52 63-18 18-52 27-92 27-39 0-74-16-94-37 9-11 14-24 23-36z" fill="#b86817" opacity="0.7"/>
+  <circle cx="390" cy="292" r="16" fill="#f2d47a"/>
+  <circle cx="510" cy="292" r="16" fill="#f2d47a"/>
+  <circle cx="450" cy="355" r="16" fill="#f2d47a"/>
+  <text x="450" y="520" text-anchor="middle" font-size="38" font-family="Georgia, serif" fill="#7a4d19" font-weight="700">SEFRON HOUSE</text>
+</svg>

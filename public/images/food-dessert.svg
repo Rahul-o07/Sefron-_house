@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1">
+      <stop offset="0%" stop-color="#f7dff1"/>
+      <stop offset="100%" stop-color="#fffaf5"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="600" fill="url(#bg)"/>
+  <ellipse cx="450" cy="330" rx="195" ry="165" fill="#fbf7f3"/>
+  <path d="M350 350c0-60 45-100 100-100 56 0 100 40 100 100v35H350v-35z" fill="#e697b5"/>
+  <path d="M388 245c0-34 24-60 62-60 38 0 62 26 62 60" stroke="#d6779e" stroke-width="14" fill="none" stroke-linecap="round"/>
+  <circle cx="412" cy="322" r="14" fill="#f5c0d6"/>
+  <circle cx="486" cy="322" r="14" fill="#f5c0d6"/>
+  <path d="M418 360c15 16 26 22 32 22 6 0 18-6 33-22" stroke="#a64d6d" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <text x="450" y="520" text-anchor="middle" font-size="42" font-family="Georgia, serif" fill="#8a4a63" font-weight="700">Desserts</text>
+</svg>

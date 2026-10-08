@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1">
+      <stop offset="0%" stop-color="#d7f0d4"/>
+      <stop offset="100%" stop-color="#f9f7f1"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="600" fill="url(#bg)"/>
+  <ellipse cx="450" cy="335" rx="210" ry="170" fill="#f6f2ef"/>
+  <ellipse cx="450" cy="333" rx="165" ry="120" fill="#f2d17b"/>
+  <path d="M330 336c0-58 55-97 120-97s120 39 120 97-55 97-120 97-120-39-120-97z" fill="#c17b2a"/>
+  <path d="M365 292c20-36 59-60 85-60 30 0 65 26 85 60" stroke="#f4ba4d" stroke-width="12" fill="none" stroke-linecap="round"/>
+  <path d="M329 322c18-29 40-42 56-42" stroke="#a64e16" stroke-width="12" fill="none" stroke-linecap="round"/>
+  <path d="M571 322c-18-29-42-42-58-42" stroke="#a64e16" stroke-width="12" fill="none" stroke-linecap="round"/>
+  <path d="M420 292l-35 72 69 0-36-72" fill="#d9a13c"/>
+  <text x="450" y="520" text-anchor="middle" font-size="42" font-family="Georgia, serif" fill="#38603d" font-weight="700">Chinese</text>
+</svg>

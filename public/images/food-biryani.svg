@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1">
+      <stop offset="0%" stop-color="#f6d0ad"/>
+      <stop offset="100%" stop-color="#fdf8f2"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="600" fill="url(#bg)"/>
+  <ellipse cx="450" cy="325" rx="210" ry="170" fill="#f7f2ef"/>
+  <ellipse cx="450" cy="325" rx="155" ry="120" fill="#d8832f"/>
+  <circle cx="380" cy="286" r="36" fill="#e8b85e"/>
+  <circle cx="517" cy="286" r="36" fill="#e8b85e"/>
+  <circle cx="450" cy="238" r="40" fill="#e8b85e"/>
+  <circle cx="450" cy="358" r="34" fill="#c25d1e"/>
+  <circle cx="380" cy="356" r="30" fill="#e8b85e"/>
+  <circle cx="520" cy="356" r="30" fill="#e8b85e"/>
+  <path d="M335 376c34 28 68 42 115 42s80-14 115-42" stroke="#7a3d12" stroke-width="10" fill="none" stroke-linecap="round"/>
+  <text x="450" y="520" text-anchor="middle" font-size="42" font-family="Georgia, serif" fill="#7a4d19" font-weight="700">Biryani</text>
+</svg>

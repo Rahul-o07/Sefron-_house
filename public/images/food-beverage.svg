@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1">
+      <stop offset="0%" stop-color="#d9edf7"/>
+      <stop offset="100%" stop-color="#fbfdff"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="600" fill="url(#bg)"/>
+  <path d="M285 255h330v110c0 60-48 108-108 108H393c-60 0-108-48-108-108V255z" fill="#f7f1ea"/>
+  <path d="M280 270h340v95c0 57-46 103-103 103H383c-57 0-103-46-103-103v-95z" fill="#d8b270"/>
+  <path d="M617 285h60c30 0 55 25 55 55v26c0 30-25 55-55 55h-60" fill="#f4e7cf"/>
+  <path d="M374 265c0-28 22-50 50-50h52c28 0 50 22 50 50" stroke="#9d7140" stroke-width="10" fill="none" stroke-linecap="round"/>
+  <circle cx="398" cy="314" r="18" fill="#f5d9a7"/>
+  <circle cx="501" cy="314" r="18" fill="#f5d9a7"/>
+  <text x="450" y="520" text-anchor="middle" font-size="42" font-family="Georgia, serif" fill="#346984" font-weight="700">Beverages</text>
+</svg>
