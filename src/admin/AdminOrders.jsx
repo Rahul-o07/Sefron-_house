@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from "react"
-
-const API_URL = "http://127.0.0.1:8000"
+import { API_URL } from "../config"
 
 const STATUS_FLOW = [
   "New",
@@ -27,14 +26,6 @@ export default function AdminOrders({
       "sefron_admin_token"
     )
   }
-
-  // =====================================================
-  // LOAD MENU
-  // =====================================================
-
-  useEffect(() => {
-    loadMenu()
-  }, [])
 
   // =====================================================
   // FETCH MENU WITH ADMIN TOKEN
@@ -71,8 +62,9 @@ export default function AdminOrders({
           "sefron_admin_username"
         )
 
-        window.location.href =
+        window.location.assign(
           "/?admin=true"
+        )
 
         return
       }
@@ -100,6 +92,14 @@ export default function AdminOrders({
       setLoading(false)
     }
   }
+
+  // =====================================================
+  // LOAD MENU
+  // =====================================================
+
+  useEffect(() => {
+    loadMenu()
+  }, [])
 
   // =====================================================
   // MENU LOOKUP
@@ -199,8 +199,9 @@ export default function AdminOrders({
           "sefron_admin_username"
         )
 
-        window.location.href =
+        window.location.assign(
           "/?admin=true"
+        )
 
         return
       }

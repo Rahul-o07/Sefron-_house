@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { API_URL } from "./config"
 
 export default function ReservationStatus() {
   const [reservationId, setReservationId] = useState("")
@@ -19,7 +20,7 @@ export default function ReservationStatus() {
 
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/reservations/${reservationId}?phone=${encodeURIComponent(
+        `${API_URL}/api/reservations/${reservationId}?phone=${encodeURIComponent(
           phone
         )}`
       )

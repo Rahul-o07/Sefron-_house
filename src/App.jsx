@@ -1,17 +1,16 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useCallback } from "react"
 import "./App.css"
 
 import AdminPanel from "./admin/AdminPanel"
 import AdminLogin from "./admin/AdminLogin"
 import ReservationStatus from "./ReservationStatus"
+import { API_URL } from "./config"
 
 /* ============================================================
    SEFRON HOUSE
    Restaurant Website
    React Frontend + FastAPI Backend
    ============================================================ */
-
-const API_URL = "http://127.0.0.1:8000"
 
 const defaultFoodImage = "/images/food-generic.svg"
 
@@ -556,6 +555,7 @@ function App() {
   const [backendMessage, setBackendMessage] = useState(
     "Connecting to backend..."
   )
+  const [backendStatus, setBackendStatus] = useState("connecting") // "connecting" | "connected" | "failed"
 
   const [menu, setMenu] = useState(defaultDishes)
 
@@ -621,108 +621,151 @@ function App() {
      BACKEND CONNECTION
      ========================================================== */
 
-  useEffect(() => {
-    fetch(`${API_URL}/`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Backend returned an error")
+  const checkBackendConnection = useCallback(async (attempt = 1) => {
+    try {
+      const endpoints = [
+        `${API_URL}/api/health`,
+        `${API_URL}/api/status`,
+        API_URL ? `${API_URL}/` : "/api/health",
+        "http://127.0.0.1:8000/api/health",
+        "http://127.0.0.1:8000/",
+      ]
+
+      let success = false
+      let data = null
+
+      for (const url of endpoints) {
+        try {
+          const response = await fetch(url, { signal: AbortSignal.timeout(3000) })
+          if (response.ok) {
+            const contentType = response.headers.get("content-type") || ""
+            if (contentType.includes("application/json")) {
+              data = await response.json()
+              if (data && (data.status === "online" || data.message)) {
+                success = true
+                break
+              }
+            }
+          }
+        } catch {
+          // ignore error and try next endpoint
         }
+      }
 
-        return response.json()
-      })
-      .then((data) => {
-        setBackendMessage(
-          data.message || "Backend connected successfully"
-        )
-      })
-      .catch((error) => {
-        console.error("Backend connection error:", error)
-
-        setBackendMessage(
-          "Backend connection failed"
-        )
-      })
+      if (success) {
+        setBackendStatus("connected")
+        setBackendMessage(data?.message || "Backend connected successfully")
+      } else {
+        if (attempt <= 3) {
+          setBackendStatus("connecting")
+          setBackendMessage("Connecting to backend...")
+          setTimeout(() => checkBackendConnection(attempt + 1), 1200)
+        } else {
+          setBackendStatus("failed")
+          setBackendMessage("Backend connection failed")
+        }
+      }
+    } catch (error) {
+      console.error("Backend connection error:", error)
+      if (attempt <= 3) {
+        setBackendStatus("connecting")
+        setTimeout(() => checkBackendConnection(attempt + 1), 1200)
+      } else {
+        setBackendStatus("failed")
+        setBackendMessage("Backend connection failed")
+      }
+    }
   }, [])
+
+  useEffect(() => {
+    checkBackendConnection()
+  }, [checkBackendConnection])
 
   /* ==========================================================
      GET MENU FROM FASTAPI
      ========================================================== */
 
-  useEffect(() => {
+  const fetchMenu = useCallback(async (attempt = 1) => {
     setMenuLoading(true)
 
-    fetch(`${API_URL}/api/menu`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(
-            `Menu API returned ${response.status}`
-          )
-        }
+    const endpoints = [
+      `${API_URL}/api/menu`,
+      "http://127.0.0.1:8000/api/menu",
+    ]
 
-        return response.json()
-      })
-      .then((data) => {
-        if (!Array.isArray(data)) {
-          throw new Error(
-            "Menu API did not return an array"
-          )
-        }
-
-        const menuWithImages = data.map((dish) => {
-          const normalizedMenuName = String(
-            dish.name || ""
-          )
-            .trim()
-            .toLowerCase()
-
-          const matchingDish =
-            defaultDishes.find(
-              (item) =>
-                String(item.name || "")
-                  .trim()
-                  .toLowerCase() ===
-                normalizedMenuName
-            ) ||
-            defaultDishes.find(
-              (item) =>
-                Number(item.id) === Number(dish.id)
-            )
-
-          const localDishImage =
-            matchingDish?.image || getDishImage(dish.name)
-
-          return {
-            ...dish,
-            image:
-              dish.image && String(dish.image).startsWith("http")
-                ? dish.image
-                : localDishImage || defaultFoodImage,
+    let fetchedData = null
+    for (const url of endpoints) {
+      try {
+        const response = await fetch(url, { signal: AbortSignal.timeout(4000) })
+        if (response.ok) {
+          const data = await response.json()
+          if (Array.isArray(data) && data.length > 0) {
+            fetchedData = data
+            break
           }
-        })
+        }
+      } catch {
+        // try next endpoint fallback
+      }
+    }
 
-        setMenu(
-          menuWithImages.length > 0
-            ? menuWithImages
-            : defaultDishes
+    if (fetchedData) {
+      const menuWithImages = fetchedData.map((dish) => {
+        const normalizedMenuName = String(
+          dish.name || ""
         )
+          .trim()
+          .toLowerCase()
 
-        setMenuLoading(false)
+        const matchingDish =
+          defaultDishes.find(
+            (item) =>
+              String(item.name || "")
+                .trim()
+                .toLowerCase() ===
+              normalizedMenuName
+          ) ||
+          defaultDishes.find(
+            (item) =>
+              Number(item.id) === Number(dish.id)
+          )
+
+        const localDishImage =
+          matchingDish?.image || getDishImage(dish.name)
+
+        return {
+          ...dish,
+          image:
+            dish.image && String(dish.image).startsWith("http")
+              ? dish.image
+              : localDishImage || defaultFoodImage,
+        }
       })
-      .catch((error) => {
-        console.error(
-          "Menu API connection error:",
-          error
-        )
 
+      setMenu(
+        menuWithImages.length > 0
+          ? menuWithImages
+          : defaultDishes
+      )
+      setMenuLoading(false)
+    } else {
+      if (attempt <= 2) {
+        setTimeout(() => fetchMenu(attempt + 1), 1500)
+      } else {
         /*
-          If PostgreSQL/backend menu fails,
+          If PostgreSQL/backend menu fails after retries,
           continue showing the default menu
           instead of breaking the website.
         */
         setMenu(defaultDishes)
         setMenuLoading(false)
-      })
+      }
+    }
   }, [])
+
+  useEffect(() => {
+    fetchMenu()
+  }, [fetchMenu])
 
   /* ==========================================================
      ADD TO CART
@@ -1380,12 +1423,75 @@ function App() {
         style={{
           padding: "8px 16px",
           textAlign: "center",
-          background: "#111",
-          color: "#fff",
+          background:
+            backendStatus === "connected"
+              ? "#0c2b18"
+              : backendStatus === "connecting"
+              ? "#2d2305"
+              : "#3b1111",
+          color:
+            backendStatus === "connected"
+              ? "#86efac"
+              : backendStatus === "connecting"
+              ? "#fef08a"
+              : "#fca5a5",
           fontSize: "13px",
+          fontWeight: "500",
+          letterSpacing: "0.2px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "10px",
+          borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
+          transition: "background 0.3s ease, color 0.3s ease",
         }}
       >
-        {backendMessage}
+        <span
+          style={{
+            display: "inline-block",
+            width: "8px",
+            height: "8px",
+            borderRadius: "50%",
+            backgroundColor:
+              backendStatus === "connected"
+                ? "#22c55e"
+                : backendStatus === "connecting"
+                ? "#eab308"
+                : "#ef4444",
+            boxShadow:
+              backendStatus === "connected"
+                ? "0 0 8px #22c55e"
+                : backendStatus === "connecting"
+                ? "0 0 8px #eab308"
+                : "none",
+          }}
+        />
+        <span>
+          {backendStatus === "connected"
+            ? "SEFRON HOUSE Backend: Online (FastAPI + PostgreSQL)"
+            : backendMessage}
+        </span>
+        {backendStatus === "failed" && (
+          <button
+            onClick={() => {
+              checkBackendConnection()
+              fetchMenu()
+            }}
+            style={{
+              padding: "3px 10px",
+              marginLeft: "10px",
+              fontSize: "12px",
+              fontWeight: "600",
+              background: "#ef4444",
+              color: "#fff",
+              border: "none",
+              borderRadius: "4px",
+              cursor: "pointer",
+            }}
+          >
+            Retry Connection
+          </button>
+        )}
       </div>
 
       {/* ======================================================

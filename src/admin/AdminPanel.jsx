@@ -6,8 +6,7 @@ import RevenueAnalytics from "./RevenueAnalytics"
 import AdminMenu from "./AdminMenu"
 
 import "./AdminPanel.css"
-
-const API_URL = "http://127.0.0.1:8000"
+import { API_URL } from "../config"
 
 export default function AdminPanel() {
   const [activePage, setActivePage] =
@@ -57,59 +56,6 @@ export default function AdminPanel() {
       ...options,
       headers,
     })
-  }
-
-  // =====================================================
-  // LOAD ALL DATA
-  // =====================================================
-
-  useEffect(() => {
-    loadAllData()
-  }, [])
-
-  // =====================================================
-  // LOAD ORDERS + MENU
-  // =====================================================
-
-  const loadAllData = async () => {
-    setRefreshing(true)
-
-    try {
-      await Promise.all([
-        fetchOrders(),
-        fetchMenu(),
-      ])
-    } catch (error) {
-      console.error(
-        "Failed to load admin data:",
-        error
-      )
-
-      // -------------------------------------------------
-      // IF TOKEN IS INVALID
-      // -------------------------------------------------
-
-      if (
-        error.message ===
-        "ADMIN_AUTH_REQUIRED"
-      ) {
-        localStorage.removeItem(
-          "sefron_admin_token"
-        )
-
-        localStorage.removeItem(
-          "sefron_admin_username"
-        )
-
-        window.location.href =
-          "/?admin=true"
-
-        return
-      }
-    } finally {
-      setLoading(false)
-      setRefreshing(false)
-    }
   }
 
   // =====================================================
@@ -203,6 +149,60 @@ export default function AdminPanel() {
       throw error
     }
   }
+
+  // =====================================================
+  // LOAD ORDERS + MENU
+  // =====================================================
+
+  const loadAllData = async () => {
+    setRefreshing(true)
+
+    try {
+      await Promise.all([
+        fetchOrders(),
+        fetchMenu(),
+      ])
+    } catch (error) {
+      console.error(
+        "Failed to load admin data:",
+        error
+      )
+
+      // -------------------------------------------------
+      // IF TOKEN IS INVALID
+      // -------------------------------------------------
+
+      if (
+        error.message ===
+        "ADMIN_AUTH_REQUIRED"
+      ) {
+        localStorage.removeItem(
+          "sefron_admin_token"
+        )
+
+        localStorage.removeItem(
+          "sefron_admin_username"
+        )
+
+        window.location.assign(
+          "/?admin=true"
+        )
+
+        return
+      }
+    } finally {
+      setLoading(false)
+      setRefreshing(false)
+    }
+  }
+
+  // =====================================================
+  // LOAD ALL DATA
+  // =====================================================
+
+  useEffect(() => {
+    loadAllData()
+  }, [])
 
   // =====================================================
   // CALCULATE TOTAL REVENUE
