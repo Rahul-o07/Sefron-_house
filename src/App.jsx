@@ -2545,7 +2545,6 @@ function App() {
             📍 chennai, tamilnadu, India
           </span>
 
-          ```jsx
 <span>
   📞 +91 80720 85168
 </span>
@@ -2553,7 +2552,7 @@ function App() {
 <span>
   ✉️ rahulnathaniel18@gmail.com
 </span>
-```
+
 
 
         </div>
