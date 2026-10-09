@@ -552,11 +552,6 @@ function App() {
      GENERAL STATE
      ========================================================== */
 
-  const [backendMessage, setBackendMessage] = useState(
-    "Connecting to backend..."
-  )
-  const [backendStatus, setBackendStatus] = useState("connecting") // "connecting" | "connected" | "failed"
-
   const [menu, setMenu] = useState(defaultDishes)
 
   const [menuLoading, setMenuLoading] = useState(true)
@@ -616,70 +611,6 @@ function App() {
   const [trackingLoading, setTrackingLoading] = useState(false)
 
   const [trackingError, setTrackingError] = useState("")
-
-  /* ==========================================================
-     BACKEND CONNECTION
-     ========================================================== */
-
-  const checkBackendConnection = useCallback(async (attempt = 1) => {
-    try {
-      const endpoints = [
-        `${API_URL}/api/health`,
-        `${API_URL}/api/status`,
-        API_URL ? `${API_URL}/` : "/api/health",
-        "http://127.0.0.1:8000/api/health",
-        "http://127.0.0.1:8000/",
-      ]
-
-      let success = false
-      let data = null
-
-      for (const url of endpoints) {
-        try {
-          const response = await fetch(url, { signal: AbortSignal.timeout(3000) })
-          if (response.ok) {
-            const contentType = response.headers.get("content-type") || ""
-            if (contentType.includes("application/json")) {
-              data = await response.json()
-              if (data && (data.status === "online" || data.message)) {
-                success = true
-                break
-              }
-            }
-          }
-        } catch {
-          // ignore error and try next endpoint
-        }
-      }
-
-      if (success) {
-        setBackendStatus("connected")
-        setBackendMessage(data?.message || "Backend connected successfully")
-      } else {
-        if (attempt <= 3) {
-          setBackendStatus("connecting")
-          setBackendMessage("Connecting to backend...")
-          setTimeout(() => checkBackendConnection(attempt + 1), 1200)
-        } else {
-          setBackendStatus("failed")
-          setBackendMessage("Backend connection failed")
-        }
-      }
-    } catch (error) {
-      console.error("Backend connection error:", error)
-      if (attempt <= 3) {
-        setBackendStatus("connecting")
-        setTimeout(() => checkBackendConnection(attempt + 1), 1200)
-      } else {
-        setBackendStatus("failed")
-        setBackendMessage("Backend connection failed")
-      }
-    }
-  }, [])
-
-  useEffect(() => {
-    checkBackendConnection()
-  }, [checkBackendConnection])
 
   /* ==========================================================
      GET MENU FROM FASTAPI
@@ -1414,85 +1345,6 @@ function App() {
 
   return (
     <div className="app">
-
-      {/* ======================================================
-          BACKEND CONNECTION
-          ====================================================== */}
-
-      <div
-        style={{
-          padding: "8px 16px",
-          textAlign: "center",
-          background:
-            backendStatus === "connected"
-              ? "#0c2b18"
-              : backendStatus === "connecting"
-              ? "#2d2305"
-              : "#3b1111",
-          color:
-            backendStatus === "connected"
-              ? "#86efac"
-              : backendStatus === "connecting"
-              ? "#fef08a"
-              : "#fca5a5",
-          fontSize: "13px",
-          fontWeight: "500",
-          letterSpacing: "0.2px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: "10px",
-          borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
-          transition: "background 0.3s ease, color 0.3s ease",
-        }}
-      >
-        <span
-          style={{
-            display: "inline-block",
-            width: "8px",
-            height: "8px",
-            borderRadius: "50%",
-            backgroundColor:
-              backendStatus === "connected"
-                ? "#22c55e"
-                : backendStatus === "connecting"
-                ? "#eab308"
-                : "#ef4444",
-            boxShadow:
-              backendStatus === "connected"
-                ? "0 0 8px #22c55e"
-                : backendStatus === "connecting"
-                ? "0 0 8px #eab308"
-                : "none",
-          }}
-        />
-        <span>
-          {backendStatus === "connected"
-            ? "SEFRON HOUSE Backend: Online (FastAPI + PostgreSQL)"
-            : backendMessage}
-        </span>
-        {backendStatus === "failed" && (
-          <button
-            onClick={() => {
-              checkBackendConnection()
-              fetchMenu()
-            }}
-            style={{
-              padding: "3px 10px",
-              marginLeft: "10px",
-              fontSize: "12px",
-              fontWeight: "600",
-              background: "#ef4444",
-              color: "#fff",
-              border: "none",
-              borderRadius: "4px",
-              cursor: "pointer",
-            }}
-          >
-            Retry Connection
-          </button>
-        )}
-      </div>
 
       {/* ======================================================
           NAVBAR
