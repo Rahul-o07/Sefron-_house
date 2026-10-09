@@ -2542,16 +2542,19 @@ function App() {
         <div className="contact-details">
 
           <span>
-            📍 Your Restaurant Address
+            📍 chennai, tamilnadu, India
           </span>
 
-          <span>
-            📞 +91 XXXXX XXXXX
-          </span>
+          ```jsx
+<span>
+  📞 +91 80720 85168
+</span>
 
-          <span>
-            ✉️ hello@sefronhouse.com
-          </span>
+<span>
+  ✉️ rahulnathaniel18@gmail.com
+</span>
+```
+
 
         </div>
 
